@@ -69,4 +69,8 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  input {
+    @apply border-slate-500 px-8 py-2  outline-none w-1/2;
+  }
 }

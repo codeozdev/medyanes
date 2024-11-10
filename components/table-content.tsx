@@ -27,67 +27,24 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
+import RemoveBtn from "./remove-button";
 
 export type Payment = {
   id: string;
   city: string;
-  surname: string;
+  fullname: string;
   email: string;
 };
 
-export function DataTableDemo() {
+export function DataTableDemo({ posts }: { posts: Payment[] }) {
   // Veri için state
-  const [data, setData] = React.useState<Payment[]>([
-    {
-      id: "m5gr84i9",
-      city: "Istanbul",
-      surname: "Oguzhan Uguz",
-      email: "ken99@yahoo.com",
-    },
-    {
-      id: "3u1reuv4",
-      city: "Ankara",
-      surname: "Ferhat Kaya",
-      email: "Abe45@gmail.com",
-    },
-    {
-      id: "derv1ws0",
-      city: "Adana",
-      surname: "Aysel Kaya",
-      email: "Monserrat44@gmail.com",
-    },
-    {
-      id: "5kma53ae",
-      city: "Erzurum",
-      surname: "Aleyna Yildiz",
-      email: "Silas22@gmail.com",
-    },
-    {
-      id: "bhqecj4p",
-      city: "Van",
-      surname: "Carmella Kaya",
-      email: "carmella@hotmail.com",
-    },
-  ]);
-
-  // Silme fonksiyonu
-  function handleDelete(id: string) {
-    const updatedData = data.filter((item) => item.id !== id);
-    setData(updatedData); // Yeni veriyi state'e güncelliyoruz
-    console.log("Silinen id:", id);
-  }
-
-  // Düzenleme fonksiyonu
-  function handleEdit(id: string) {
-    // Burada edit işlemi yapılacak
-    console.log("Düzenlenen id:", id);
-  }
+  const [data, setData] = React.useState<Payment[]>(posts);
 
   const columns: ColumnDef<Payment>[] = [
     {
-      accessorKey: "surname",
-      header: "Surname",
-      cell: ({ row }) => <div className="capitalize">{row.getValue("surname")}</div>,
+      accessorKey: "fullname",
+      header: "Full Name",
+      cell: ({ row }) => <div className="capitalize">{row.getValue("fullname")}</div>,
     },
     {
       accessorKey: "email",
@@ -120,12 +77,7 @@ export function DataTableDemo() {
             <Link href={`/editStudent/${row.getValue("id")}`}>Edit</Link>
           </Button>
           {/* Sil Butonu */}
-          <Button
-            variant="outline"
-            onClick={() => handleDelete(row.getValue("id"))}
-            className="text-red-500">
-            Sil
-          </Button>
+          <RemoveBtn id={row.getValue("id")} />
         </div>
       ),
     },
@@ -201,23 +153,10 @@ export function DataTableDemo() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}>
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}>
-            Next
-          </Button>
-        </div>
+      <div className="flex items-center justify-end py-4">
+        <Button>
+          <Link href="/addStudent">Add Student</Link>
+        </Button>
       </div>
     </div>
   );
