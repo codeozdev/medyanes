@@ -11,7 +11,7 @@ export default function AddStudent() {
 
   const router = useRouter();
 
-  const addStudent = async (e: any) => {
+  const addStudent = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!fullname || !city || !email) {

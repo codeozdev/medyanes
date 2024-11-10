@@ -1,7 +1,7 @@
 import EditStudent from "@/components/edit-student";
 const URL = process.env.NEXT_PUBLIC_API_URL;
 
-async function getPost(id: any) {
+async function getPost(id: string) {
   const res = await fetch(`${URL}/api/student/${id}`, {
     cache: "no-cache",
   });

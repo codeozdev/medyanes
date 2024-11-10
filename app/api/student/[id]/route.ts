@@ -1,7 +1,13 @@
 import prisma from "@/prisma/prismadb";
 import { NextResponse } from "next/server";
 
-export async function DELETE(request: any, { params }: any) {
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+export async function DELETE(request: Request, { params }: Props) {
   const { id } = await params;
   try {
     const deletedPost = await prisma.student.delete({
@@ -17,7 +23,7 @@ export async function DELETE(request: any, { params }: any) {
   }
 }
 
-export async function GET(request: any, { params }: any) {
+export async function GET(request: Request, { params }: Props) {
   try {
     const { id } = await params;
 
@@ -37,7 +43,7 @@ export async function GET(request: any, { params }: any) {
   }
 }
 
-export async function PATCH(request: any, { params }: any) {
+export async function PATCH(request: Request, { params }: Props) {
   try {
     const { newFullName: fullname, newCity: city, newEmail: email } = await request.json();
 

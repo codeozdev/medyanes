@@ -4,14 +4,23 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 const URL = process.env.NEXT_PUBLIC_API_URL;
 
-export default function EditStudent({ student }: { student: any }) {
+interface StudentProps {
+  student: {
+    id: string;
+    fullname: string;
+    city: string;
+    email: string;
+  };
+}
+
+export default function EditStudent({ student }: StudentProps) {
   const [newFullName, setNewFullName] = useState(student.fullname);
   const [newCity, setNewCity] = useState(student.city);
   const [newEmail, setNewEmail] = useState(student.email);
 
   const router = useRouter();
 
-  const updateStudent = async (e: any) => {
+  const updateStudent = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!newFullName || !newCity || !newEmail) {
